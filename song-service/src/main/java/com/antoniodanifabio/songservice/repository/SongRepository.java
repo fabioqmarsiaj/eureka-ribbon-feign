@@ -6,8 +6,9 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.cdi.MongoRepositoryBean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-public interface SongRepository extends MongoRepository<Song, Integer>{
+public interface SongRepository extends MongoRepository<Song, String>{
 
-//	@Query("{ 'firstname' : ?0 }")
-//	public Song getRandomSong();
+    Song findByTitle(String titleSong);
+    Song getSongByTitleEquals(String titleSong);
+
 }
