@@ -1,4 +1,4 @@
-package com.antoniofabio.songservice.domain;
+package com.antoniodanifabio.songservice.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

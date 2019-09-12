@@ -1,4 +1,4 @@
-package com.antoniofabio.appservice;
+package com.antoniodanifabio.appservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

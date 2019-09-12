@@ -1,4 +1,4 @@
-package com.antoniofabio.appservice;
+package com.antoniodanifabio.appservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

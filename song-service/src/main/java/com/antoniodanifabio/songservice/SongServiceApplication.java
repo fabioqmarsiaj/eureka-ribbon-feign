@@ -1,4 +1,4 @@
-package com.antoniofabio.songservice;
+package com.antoniodanifabio.songservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
