@@ -2,40 +2,46 @@ package com.antoniodanifabio.songservice.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.antoniodanifabio.songservice.domain.Song;
 import com.antoniodanifabio.songservice.repository.SongRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/song")
+@RequestMapping("/songs")
 public class SongController {
 	
 	@Autowired
 	private SongRepository repository;
 	
-	@PostMapping(value = "/insert/{titleSong}")
-	public void insertSong(
-						   @PathVariable String titleSong) {
-		Song song = new Song();
-		song.setTitle(titleSong);
-		repository.save(song);
+	@PostMapping
+	@ResponseStatus(value = HttpStatus.CREATED)
+	public void insertSong(@RequestBody Song newSong) {
+		repository.save(newSong);
 	}
 	
-	@RequestMapping(value = "/all")
+	@GetMapping
+	@ResponseStatus(value = HttpStatus.OK)
 	public List<Song> getAllSongs() {
 		return repository.findAll();
 	}
 
-	@PostMapping(value = "/delete/{titleSong}")
-	public void deleteSong(
-			@PathVariable String titleSong){
-		
-		repository.delete(repository.getSongByTitleEquals(titleSong));
+	@PostMapping(value = "/{idSong}")
+	public void deleteSong(@PathVariable String idSong){
+		repository.deleteById(idSong);
 	}
-
-	private Song findSong(String titleSong){
-		return repository.findByTitle(titleSong);
+	
+	@GetMapping(value = "/{idSong}")
+	public Song searchSong(@PathVariable String idSong) {
+		return repository.findById(idSong).get();
 	}
 	
 }
