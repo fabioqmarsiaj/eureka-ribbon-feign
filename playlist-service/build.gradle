@@ -14,5 +14,11 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    compile group: 'io.github.openfeign', name: 'feign-core', version: '9.1.0'
+    compile group: 'io.github.openfeign', name: 'feign-okhttp', version: '9.2.0'
+    compile group: 'io.github.openfeign', name: 'feign-gson', version: '9.4.0'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

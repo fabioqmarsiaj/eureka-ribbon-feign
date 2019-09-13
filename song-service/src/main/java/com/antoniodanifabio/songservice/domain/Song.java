@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Song {
 
 	private String title;
-	private String meMapeie;
 	
 	public Song() {}
 
