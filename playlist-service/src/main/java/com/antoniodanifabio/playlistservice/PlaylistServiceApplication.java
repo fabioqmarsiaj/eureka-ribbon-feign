@@ -8,6 +8,7 @@ public class PlaylistServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PlaylistServiceApplication.class, args);
+
     }
 
 }
