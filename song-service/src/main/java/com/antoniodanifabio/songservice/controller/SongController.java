@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.antoniodanifabio.songservice.commands.SaveSongCommand;
+import com.antoniodanifabio.songservice.commands.SearchCommand;
+import com.antoniodanifabio.songservice.commands.SongsCommand;
 import com.antoniodanifabio.songservice.domain.Song;
 import com.antoniodanifabio.songservice.repository.SongRepository;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
@@ -24,37 +26,31 @@ import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServl
 @RequestMapping("/songs")
 public class SongController {
 	
-	@Autowired
-	private ServletRegistrationBean<HystrixMetricsStreamServlet> servletRegistrationBean;
+//	@Autowired
+//	private ServletRegistrationBean<HystrixMetricsStreamServlet> servletRegistrationBean;
 	
 	@Autowired
 	private SongRepository repository;
 	
-	@PostMapping
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void insertSong(@RequestBody Song newSong) {
-		new SaveSongCommand(newSong).execute();
-	}
-	
 	@GetMapping
 	@ResponseStatus(value = HttpStatus.OK)
-	public List<Song> getAllSongs() {
-		return repository.findAll();
+	public ResponseEntity<List<Song>> getAllSongs() {
+		return ResponseEntity.status(HttpStatus.OK).body(new SongsCommand(repository).execute());
 	}
 
-	@PostMapping(value = "/{idSong}")
-	public void deleteSong(@PathVariable String idSong){
-		repository.deleteById(idSong);
+	@PostMapping
+	public ResponseEntity<Song> insertSong(@RequestBody Song newSong) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(new SaveSongCommand(newSong).execute());
+	}
+
+	@GetMapping(value = "/{songId}")
+	public ResponseEntity<Song> searchSong(@PathVariable String songId) {
+		return ResponseEntity.status(HttpStatus.OK).body(new SearchCommand(repository, songId).execute());
 	}
 	
-	@GetMapping(value = "/{idSong}")
-	public Song searchSong(@PathVariable String idSong) {
-		return repository.findById(idSong).get();
-	}
-	
-	@RequestMapping(value = "/hystrix.stream", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-	public ResponseEntity<ServletRegistrationBean<HystrixMetricsStreamServlet>> getHystrixMetrics() {
-		return new ResponseEntity<ServletRegistrationBean<HystrixMetricsStreamServlet>>(servletRegistrationBean, HttpStatus.OK);
-	}
+//	@RequestMapping(value = "/hystrix.stream", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+//	public ResponseEntity<ServletRegistrationBean<HystrixMetricsStreamServlet>> getHystrixMetrics() {
+//		return new ResponseEntity<ServletRegistrationBean<HystrixMetricsStreamServlet>>(servletRegistrationBean, HttpStatus.OK);
+//	}
 	
 }

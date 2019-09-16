@@ -10,19 +10,19 @@ import com.netflix.hystrix.HystrixCommandProperties;
 
 public class SearchCommand extends HystrixCommand<Song>{
 	
-	@Autowired
 	private SongRepository repository;
-	private String idSong;
+	private String songId;
 	
-	public SearchCommand(String idSong) {
+	public SearchCommand(SongRepository repository, String songId) {
 		super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
-		this.idSong = idSong;
+		this.songId = songId;
+		this.repository = repository;
 	}
 
 	@Override
 	protected Song run() throws Exception {
-		return repository.findById(idSong).get();
+		return repository.findById(songId).get();
 	}
 	
 	@Override
