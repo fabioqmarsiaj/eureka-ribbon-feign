@@ -5,6 +5,7 @@ import com.antoniodanifabio.playlistservice.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlaylistService {
@@ -28,6 +29,7 @@ public class PlaylistService {
     }
 
     public Playlist findPlaylist(String id) {
-      return repository.findOne(id);
+        Optional<Playlist> obj = repository.findById(id);
+        return repository.findById(id).orElse(null);
     }
 }
