@@ -40,7 +40,7 @@ public class SongController {
 
 	@PostMapping
 	public ResponseEntity<Song> insertSong(@RequestBody Song newSong) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(new SaveSongCommand(newSong).execute());
+		return ResponseEntity.status(HttpStatus.CREATED).body(new SaveSongCommand(repository, newSong).execute());
 	}
 
 	@GetMapping(value = "/{songId}")
