@@ -4,9 +4,7 @@ import com.antoniodanifabio.playlistservice.domain.Playlist;
 import com.antoniodanifabio.playlistservice.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PlaylistService {
@@ -30,8 +28,6 @@ public class PlaylistService {
     }
 
     public Playlist findPlaylist(String id) {
-        Optional<Playlist> playlist = repository.findById(id);
-        return playlist.orElse(null);
-
+      return repository.findOne(id);
     }
 }
