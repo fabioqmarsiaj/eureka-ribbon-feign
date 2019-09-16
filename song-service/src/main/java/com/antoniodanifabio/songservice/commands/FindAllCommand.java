@@ -1,32 +1,35 @@
 package com.antoniodanifabio.songservice.commands;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import com.antoniodanifabio.songservice.domain.Song;
 import com.antoniodanifabio.songservice.repository.SongRepository;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 
-public class SaveSongCommand extends HystrixCommand<Song>{
-
-	private SongRepository repository;
-	private Song newSong;
+public class FindAllCommand extends HystrixCommand<List<Song>>{
 	
-	public SaveSongCommand(SongRepository repository, Song newSong) {
+	private SongRepository repository;
+	
+	public FindAllCommand(SongRepository repository) {
 		super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
-		this.newSong = newSong;
 		this.repository = repository;
-
 	}
 
 	@Override
-	protected Song run() throws Exception {
-		return repository.save(newSong);
+	protected List<Song> run() throws Exception {
+		return repository.findAll();
 	}
 	
 	@Override
-	protected Song getFallback() {
-		return new Song();
+	protected List<Song> getFallback() {
+		return null;
 	}
 	
 }
