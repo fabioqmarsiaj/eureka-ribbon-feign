@@ -32,5 +32,4 @@ public class SongController {
 	public ResponseEntity<Song> searchSong(@PathVariable String songId) {
 		return ResponseEntity.status(HttpStatus.OK).body(command.searchSongById(songId));
 	}
-	
 }

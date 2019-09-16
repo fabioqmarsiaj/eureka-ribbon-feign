@@ -13,7 +13,6 @@ public class SongCommand {
     @Autowired
     private SongRepository repository;
 
-
     public Song insertNewSong(Song newSong) {
         return repository.save(newSong);
     }
