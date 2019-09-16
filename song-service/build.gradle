@@ -12,15 +12,19 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    hystrixVersion = '1.5.18'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.netflix.eureka:eureka-client:1.9.13'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
     compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.8'
+    compile "com.netflix.hystrix:hystrix-core:${hystrixVersion}"
+    compile "com.netflix.hystrix:hystrix-metrics-event-stream:${hystrixVersion}"
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    ext.hystrixVersion = '1.5.18'     
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	compile(["com.fasterxml.jackson.core:jackson-core:2.9.8",
-		 "com.netflix.hystrix:hystrix-core:${hystrixVersion}",
-		 "com.netflix.hystrix:hystrix-metrics-event-stream:${hystrixVersion}"])
 }
