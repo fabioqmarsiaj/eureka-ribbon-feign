@@ -16,4 +16,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    ext.hystrixVersion = '1.5.18'     
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile(["com.fasterxml.jackson.core:jackson-core:2.9.8",
+		 "com.netflix.hystrix:hystrix-core:${hystrixVersion}",
+		 "com.netflix.hystrix:hystrix-metrics-event-stream:${hystrixVersion}"])
 }
