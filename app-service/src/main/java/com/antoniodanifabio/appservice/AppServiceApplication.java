@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AppServiceApplication {
+
+	private static final String SONG_URL = "http://localhost:8090";
+
 	public static void main(String[] args) {
 		SpringApplication.run(AppServiceApplication.class, args);
 	}
