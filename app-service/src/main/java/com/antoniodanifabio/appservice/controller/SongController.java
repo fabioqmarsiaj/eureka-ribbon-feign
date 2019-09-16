@@ -3,20 +3,19 @@ package com.antoniodanifabio.appservice.controller;
 import com.antoniodanifabio.appservice.operation.SongOperation;
 import feign.Feign;
 import feign.gson.GsonDecoder;
+import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class AppController {
+@RequestMapping("/songs")
+public class SongController {
 
     private SongOperation songOperation = Feign.builder()
             .decoder(new GsonDecoder())
             .target(SongOperation.class, "http://localhost:8090");
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity getSongs() {
         return ResponseEntity.ok(songOperation.getAllSongs());
     }
@@ -24,5 +23,10 @@ public class AppController {
     @PostMapping
     public ResponseEntity insertNewSong(@RequestBody String jsonSong) {
         return ResponseEntity.ok(songOperation.insertSong(jsonSong));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity searchSongById(@PathVariable ObjectId id) {
+        return ResponseEntity.ok(songOperation.searchById(id));
     }
 }
