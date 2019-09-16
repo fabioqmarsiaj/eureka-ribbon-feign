@@ -1,7 +1,5 @@
 package com.antoniodanifabio.songservice.commands;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.antoniodanifabio.songservice.domain.Song;
 import com.antoniodanifabio.songservice.repository.SongRepository;
 import com.netflix.hystrix.HystrixCommand;

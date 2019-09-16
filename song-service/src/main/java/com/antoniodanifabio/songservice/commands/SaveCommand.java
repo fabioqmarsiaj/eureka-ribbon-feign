@@ -6,12 +6,12 @@ import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 
-public class SaveSongCommand extends HystrixCommand<Song>{
+public class SaveCommand extends HystrixCommand<Song>{
 
 	private SongRepository repository;
 	private Song newSong;
 	
-	public SaveSongCommand(SongRepository repository, Song newSong) {
+	public SaveCommand(SongRepository repository, Song newSong) {
 		super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
 		this.newSong = newSong;
