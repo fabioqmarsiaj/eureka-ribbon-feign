@@ -20,4 +20,6 @@ public interface SongOperation {
     @Body("{jsonSong}")
     Song insertSong(@Param("jsonSong") String jsonSong);
 
+    @RequestLine("GET /songs/{songId}")
+    Song searchById(@Param("songId") String songId);
 }

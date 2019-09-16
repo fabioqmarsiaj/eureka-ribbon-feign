@@ -3,7 +3,6 @@ package com.antoniodanifabio.appservice.controller;
 import com.antoniodanifabio.appservice.operation.SongOperation;
 import feign.Feign;
 import feign.gson.GsonDecoder;
-import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +25,7 @@ public class SongController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity searchSongById(@PathVariable ObjectId id) {
+    public ResponseEntity searchSongById(@PathVariable String id) {
         return ResponseEntity.ok(songOperation.searchById(id));
     }
 }
