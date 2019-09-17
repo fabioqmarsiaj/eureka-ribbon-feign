@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class EurekaOperations {
 
-    @Value("server.port")
+    @Value("${server.port}")
     private String serverPort;
-    @Value("ip.address")
+    @Value("${ip.address}")
     private String ipAddress;
     @Value("${host.name}")
     private String hostName;
