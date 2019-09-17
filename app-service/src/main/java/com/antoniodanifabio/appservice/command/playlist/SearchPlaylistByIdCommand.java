@@ -4,7 +4,6 @@ import com.antoniodanifabio.appservice.domain.Playlist;
 import com.antoniodanifabio.appservice.operation.PlaylistOperation;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandProperties;
 import feign.Feign;
 import feign.gson.GsonDecoder;
 
@@ -17,8 +16,7 @@ public class SearchPlaylistByIdCommand extends HystrixCommand<Playlist> {
     private String playlistId;
 
     public SearchPlaylistByIdCommand(String playlistId) {
-        super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("searchPlaylist"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+        super(HystrixCommandGroupKey.Factory.asKey("SearchPlaylistById"));
         this.playlistId = playlistId;
     }
 

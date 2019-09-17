@@ -4,7 +4,6 @@ import com.antoniodanifabio.appservice.domain.Song;
 import com.antoniodanifabio.appservice.operation.SongOperation;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandProperties;
 import feign.Feign;
 import feign.gson.GsonDecoder;
 
@@ -17,8 +16,7 @@ public class GetSongDetailCommand extends HystrixCommand<Song> {
     private String songId;
 
     public GetSongDetailCommand(String songId) {
-        super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("songDetail"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+        super(HystrixCommandGroupKey.Factory.asKey("GetSongDetail"));
         this.songId = songId;
     }
 

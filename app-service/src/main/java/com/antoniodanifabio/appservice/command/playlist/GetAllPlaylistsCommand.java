@@ -4,7 +4,6 @@ import com.antoniodanifabio.appservice.domain.Playlist;
 import com.antoniodanifabio.appservice.operation.PlaylistOperation;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandProperties;
 import feign.Feign;
 import feign.gson.GsonDecoder;
 
@@ -18,8 +17,7 @@ public class GetAllPlaylistsCommand extends HystrixCommand<List<Playlist>> {
             .target(PlaylistOperation.class, "http://localhost:8081");
 
     public GetAllPlaylistsCommand() {
-        super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("playlist"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+        super(HystrixCommandGroupKey.Factory.asKey("GetAllPlaylists"));
     }
 
     @Override
