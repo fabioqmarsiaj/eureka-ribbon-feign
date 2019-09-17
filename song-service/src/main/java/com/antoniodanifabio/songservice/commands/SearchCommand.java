@@ -12,8 +12,7 @@ public class SearchCommand extends HystrixCommand<Song>{
 	private String songId;
 	
 	public SearchCommand(SongRepository repository, String songId) {
-		super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+		super(HystrixCommandGroupKey.Factory.asKey("Search"));
 		this.songId = songId;
 		this.repository = repository;
 	}

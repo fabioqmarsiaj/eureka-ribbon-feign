@@ -12,8 +12,7 @@ public class SaveCommand extends HystrixCommand<Song>{
 	private Song newSong;
 	
 	public SaveCommand(SongRepository repository, Song newSong) {
-		super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+		super(HystrixCommandGroupKey.Factory.asKey("Save"));
 		this.newSong = newSong;
 		this.repository = repository;
 
