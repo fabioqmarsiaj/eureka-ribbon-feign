@@ -1,29 +1,33 @@
 package com.antoniodanifabio.playlistservice.domain;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection = "playlist")
+@Document(collection = "playlists")
 public class Playlist {
 
     @Id
-    private String id;
+    private ObjectId id;
     private String name;
-    private List<String> songIds;
+    private List<String> songIds = new ArrayList<>();
+
+    public Playlist() {
+        this.name = "Not Found.";
+    }
 
     public Playlist(String name) {
         this.name = name;
-        songIds = new ArrayList<>();
     }
 
     public String getId() {
-        return id;
+        return id.toHexString();
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
