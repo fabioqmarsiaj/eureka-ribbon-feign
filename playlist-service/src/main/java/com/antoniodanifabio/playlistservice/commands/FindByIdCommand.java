@@ -14,8 +14,7 @@ public class FindByIdCommand extends HystrixCommand<Playlist> {
     private String playlistId;
 
     public FindByIdCommand(PlaylistRepository repository, String playlistId) {
-        super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+        super(HystrixCommandGroupKey.Factory.asKey("FindById"));
         this.repository = repository;
         this.playlistId = playlistId;
     }
