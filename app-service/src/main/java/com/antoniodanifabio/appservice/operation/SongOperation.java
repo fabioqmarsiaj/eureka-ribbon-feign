@@ -5,11 +5,9 @@ import feign.Body;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public interface SongOperation {
 
     @RequestLine("GET /songs")
