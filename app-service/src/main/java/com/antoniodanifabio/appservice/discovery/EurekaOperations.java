@@ -1,4 +1,4 @@
-package com.antoniodanifabio.playlistservice.discovery;
+package com.antoniodanifabio.appservice.discovery;
 
 import feign.Feign;
 import feign.gson.GsonDecoder;
@@ -43,7 +43,7 @@ public class EurekaOperations {
                         "        }\n" +
                         "    }\n" +
                         "}"
-        , serviceName);
+                , serviceName);
         eurekaHttpMethodsService.updateToUP(serviceName, hostName);
     }
 

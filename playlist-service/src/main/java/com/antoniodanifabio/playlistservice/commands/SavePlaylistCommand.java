@@ -13,8 +13,7 @@ public class SavePlaylistCommand extends HystrixCommand<Playlist> {
     private Playlist newPlaylist;
 
     public SavePlaylistCommand(PlaylistRepository repository, Playlist newPlaylist) {
-        super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+        super(HystrixCommandGroupKey.Factory.asKey("SavePlaylist"));
         this.repository = repository;
         this.newPlaylist = newPlaylist;
     }

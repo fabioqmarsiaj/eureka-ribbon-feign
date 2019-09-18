@@ -12,8 +12,7 @@ public class FindAllCommand extends HystrixCommand<List<Playlist>> {
     private PlaylistRepository repository;
 
     public FindAllCommand(PlaylistRepository repository) {
-        super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+        super(HystrixCommandGroupKey.Factory.asKey("FindAll"));
         this.repository = repository;
     }
 

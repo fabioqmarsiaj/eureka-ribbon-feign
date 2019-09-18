@@ -13,8 +13,7 @@ public class SaveSongCommand extends HystrixCommand<Playlist> {
     private String playlistId;
 
     public SaveSongCommand(PlaylistRepository repository, String songId, String playlistId) {
-        super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("song"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(10000)));
+        super(HystrixCommandGroupKey.Factory.asKey("SaveSong"));
         this.repository = repository;
         this.songId = songId;
         this.playlistId = playlistId;
