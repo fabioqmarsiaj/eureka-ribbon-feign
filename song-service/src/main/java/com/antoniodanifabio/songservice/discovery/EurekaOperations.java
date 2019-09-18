@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class EurekaOperations {
 
-    @Value("server.port")
+    @Value("${server.port}")
     private String serverPort;
-    @Value("ip.address")
+    @Value("${ip.address}")
     private String ipAddress;
     @Value("${host.name}")
     private String hostName;
@@ -26,7 +26,7 @@ public class EurekaOperations {
         eurekaHttpMethodsService.registry(
                 "{\n" +
                         "    \"instance\": {\n" +
-                        "        \"hostName\": \""+ hostName +"\",\n" +
+                        "        \"hostName\": \""+ buildInstanceID(ipAddress, serverPort, serviceName) +"\",\n" +
                         "        \"app\": \""+ serviceName +"\",\n" +
                         "        \"vipAddress\": \"com.localhost\",\n" +
                         "        \"secureVipAddress\": \"com.localhost\",\n" +
@@ -44,10 +44,14 @@ public class EurekaOperations {
                         "    }\n" +
                         "}"
         , serviceName);
-        eurekaHttpMethodsService.updateToUP(serviceName, hostName);
+        eurekaHttpMethodsService.updateToUP(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
     }
 
     public void delete(){
-        eurekaHttpMethodsService.delete(serviceName, hostName);
+        eurekaHttpMethodsService.delete(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
+    }
+
+    String buildInstanceID(String ip, String port, String appName) {
+        return String.format("%s_%s_%s", appName, ip, port);
     }
 }
