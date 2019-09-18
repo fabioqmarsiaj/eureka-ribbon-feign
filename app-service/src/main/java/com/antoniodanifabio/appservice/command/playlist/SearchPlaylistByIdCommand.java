@@ -11,7 +11,7 @@ public class SearchPlaylistByIdCommand extends HystrixCommand<Playlist> {
 
     private PlaylistOperation playlistOperation = Feign.builder()
             .decoder(new GsonDecoder())
-            .target(PlaylistOperation.class, "http://localhost:8081");
+            .target(PlaylistOperation.class, "http://localhost:8082");
 
     private String playlistId;
 
