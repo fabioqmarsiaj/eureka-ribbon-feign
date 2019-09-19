@@ -10,8 +10,9 @@ and load balancing with ribbon.
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Eureka](#eureka)
-  - [Feign]()
-  - [Ribbon]()
+  - [Feign](#feign)
+  - [Ribbon](#ribbon)
+  - [Video](#video)
   - [Authors](#authors)
   
   ## Introduction
@@ -32,8 +33,8 @@ and load balancing with ribbon.
   ## Requirements
   
   - [Git](https://git-scm.com/)
-  - [Java8]()
-  - [Gradle]()
+  - [Java8](https://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html)
+  - [Gradle](https://gradle.org/install/)
   - [Tomcat](http://tomcat.eu.apache.org/download-90.cgi?Preferred=ftp://apache.cs.utah.edu/apache.org/)
   - [Eureka](https://github.com/Netflix/eureka)
   
@@ -120,6 +121,9 @@ $bin/catalina.sh run
    
    Our requests to the song-service are controlled and load balanced, because we run two instances of the song-service.
    So Ribbon helps us to distribute our requests equally.
+   
+   ## Video
+   [YouTube](https://youtu.be/Aka0QQX3MhU)
    
    ## Authors
    
