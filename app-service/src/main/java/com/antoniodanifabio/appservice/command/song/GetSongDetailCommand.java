@@ -12,11 +12,9 @@ import com.netflix.loadbalancer.reactive.ServerOperation;
 import feign.Feign;
 import feign.gson.GsonDecoder;
 import rx.Observable;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-
 
 public class GetSongDetailCommand extends HystrixCommand<Song> {
 
@@ -49,23 +47,28 @@ public class GetSongDetailCommand extends HystrixCommand<Song> {
     }
 
     private static String callFeign(BaseLoadBalancer loadBalancer) {
-
-        ServerOperation<String> submitToServer = server -> {
-            URL url;
-            try {
-                url = new URL("http://" + server.getHost() + ":" + server.getPort() + "/");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                return Observable.just(conn.getResponseMessage());
-            } catch (Exception e) {
-                return Observable.error(e);
-            }
-        };
-
-        return LoadBalancerCommand.<String>builder()
+        String result = LoadBalancerCommand.<String>builder()
                 .withLoadBalancer(loadBalancer)
                 .build()
-                .submit(submitToServer)
+                .submit(
+                        new ServerOperation<String>() {
+                            @Override
+                            public Observable<String> call(Server server) {
+                                URL url;
+                                try {
+                                    url = new URL("http://" + server.getHost() + ":" + server.getPort());
+                                    return Observable.just(url.toString());
+                                } catch (Exception e) {
+                                    return Observable.error(e);
+                                }
+                            }
+                        }
+                )
                 .toBlocking()
                 .first();
+
+        System.out.println(result);
+
+        return result;
     }
 }

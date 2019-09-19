@@ -4,7 +4,6 @@ import com.antoniodanifabio.playlistservice.domain.Playlist;
 import com.antoniodanifabio.playlistservice.repository.PlaylistRepository;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandProperties;
 
 public class SaveSongCommand extends HystrixCommand<Playlist> {
 
