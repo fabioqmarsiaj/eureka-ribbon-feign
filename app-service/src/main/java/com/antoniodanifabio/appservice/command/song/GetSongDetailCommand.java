@@ -47,7 +47,8 @@ public class GetSongDetailCommand extends HystrixCommand<Song> {
     }
 
     private static String callFeign(BaseLoadBalancer loadBalancer) {
-        String result = LoadBalancerCommand.<String>builder()
+
+        return LoadBalancerCommand.<String>builder()
                 .withLoadBalancer(loadBalancer)
                 .build()
                 .submit(
@@ -66,9 +67,5 @@ public class GetSongDetailCommand extends HystrixCommand<Song> {
                 )
                 .toBlocking()
                 .first();
-
-        System.out.println(result);
-
-        return result;
     }
 }
