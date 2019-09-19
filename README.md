@@ -127,8 +127,7 @@ $bin/catalina.sh run
 
 <a href="https://github.com/fabioqmarsiaj">
     <img 
-    alt="Imagem do Autor Fabio Marsiaj" src="https://avatars3.githubusercontent.com/u/45765571?s=460&v=4
-" width="100">
+    alt="Imagem do Autor Antônio Azambuja" src="https://avatars3.githubusercontent.com/u/45765571?s=460&v=4" width="100">
 </a>
    
    
