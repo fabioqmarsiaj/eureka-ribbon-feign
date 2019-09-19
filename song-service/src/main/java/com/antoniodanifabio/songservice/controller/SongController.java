@@ -21,9 +21,6 @@ import com.antoniodanifabio.songservice.repository.SongRepository;
 @RequestMapping("/songs")
 public class SongController {
 	
-//	@Autowired
-//	private ServletRegistrationBean<HystrixMetricsStreamServlet> servletRegistrationBean;
-	
 	@Autowired
 	private SongRepository repository;
 	
@@ -42,10 +39,5 @@ public class SongController {
 	public ResponseEntity<Song> searchSong(@PathVariable String songId) {
 		return ResponseEntity.status(HttpStatus.OK).body(new SearchCommand(repository, songId).execute());
 	}
-	
-//	@RequestMapping(value = "/hystrix.stream", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-//	public ResponseEntity<ServletRegistrationBean<HystrixMetricsStreamServlet>> getHystrixMetrics() {
-//		return new ResponseEntity<ServletRegistrationBean<HystrixMetricsStreamServlet>>(servletRegistrationBean, HttpStatus.OK);
-//	}
 	
 }

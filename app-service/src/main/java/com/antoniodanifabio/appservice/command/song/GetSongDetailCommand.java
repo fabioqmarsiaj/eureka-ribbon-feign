@@ -47,7 +47,6 @@ public class GetSongDetailCommand extends HystrixCommand<Song> {
     }
 
     private static String callFeign(BaseLoadBalancer loadBalancer) {
-
         return LoadBalancerCommand.<String>builder()
                 .withLoadBalancer(loadBalancer)
                 .build()
