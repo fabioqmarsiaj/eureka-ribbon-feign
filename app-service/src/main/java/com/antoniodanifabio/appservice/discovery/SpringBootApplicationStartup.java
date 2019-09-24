@@ -15,4 +15,5 @@ public class SpringBootApplicationStartup implements ApplicationListener<Applica
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         eurekaOperations.register();
     }
+    
 }

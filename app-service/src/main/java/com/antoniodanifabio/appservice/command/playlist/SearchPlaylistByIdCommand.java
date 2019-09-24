@@ -1,17 +1,16 @@
 package com.antoniodanifabio.appservice.command.playlist;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.antoniodanifabio.appservice.domain.Playlist;
 import com.antoniodanifabio.appservice.operation.PlaylistOperation;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-import feign.Feign;
-import feign.gson.GsonDecoder;
 
 public class SearchPlaylistByIdCommand extends HystrixCommand<Playlist> {
-
-    private PlaylistOperation playlistOperation = Feign.builder()
-            .decoder(new GsonDecoder())
-            .target(PlaylistOperation.class, "http://localhost:8082");
+	
+	@Autowired
+    private PlaylistOperation playlistOperation;
 
     private String playlistId;
 

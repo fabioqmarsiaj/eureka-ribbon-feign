@@ -6,6 +6,9 @@ import feign.RequestLine;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface PlaylistOperation {
 
     @RequestLine("GET /playlists")

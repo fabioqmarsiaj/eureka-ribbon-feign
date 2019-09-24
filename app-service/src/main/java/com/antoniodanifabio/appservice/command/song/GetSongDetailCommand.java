@@ -16,13 +16,24 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class GetSongDetailCommand extends HystrixCommand<Song> {
 
-    private static List<Server> hosts = Arrays.asList(
-            new Server("localhost", 8083),
-            new Server("localhost", 8084));
+	@Value("${host.name}")
+    private String hostName;
+	
+	@Value("${song1.port}")
+    private Integer portInstanceSong1;
+	
+	@Value("${song2.port}")
+    private Integer portInstanceSong2;
+	
+    private List<Server> hosts = Arrays.asList(
+            new Server(hostName, portInstanceSong1),
+            new Server(hostName, portInstanceSong1));
 
-    private static BaseLoadBalancer loadBalancer = LoadBalancerBuilder.newBuilder()
+    private BaseLoadBalancer loadBalancer = LoadBalancerBuilder.newBuilder()
             .buildFixedServerListLoadBalancer(hosts);
 
     private SongOperation songOperation = Feign.builder()
@@ -46,7 +57,7 @@ public class GetSongDetailCommand extends HystrixCommand<Song> {
         return new Song(null, "Default");
     }
 
-    private static String callFeign(BaseLoadBalancer loadBalancer) {
+    private String callFeign(BaseLoadBalancer loadBalancer) {
         return LoadBalancerCommand.<String>builder()
                 .withLoadBalancer(loadBalancer)
                 .build()

@@ -1,7 +1,6 @@
 package com.antoniodanifabio.appservice.discovery;
 
-import feign.Feign;
-import feign.gson.GsonDecoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +16,11 @@ public class EurekaOperations {
     @Value("${service.name}")
     private String serviceName;
 
-    private  EurekaHttpMethods eurekaHttpMethodsService = Feign
-            .builder()
-            .decoder(new GsonDecoder())
-            .target(EurekaHttpMethods.class, "http://localhost:8080/eureka/v2/apps");
-
+    @Autowired
+    private EurekaFeign eurekaFeign;
+    
     public void register(){
-        eurekaHttpMethodsService.registry(
+    	eurekaFeign.getFeignBuilder().registry(
                 "{\n" +
                         "    \"instance\": {\n" +
                         "        \"hostName\": \""+ hostName +"\",\n" +
@@ -42,12 +39,11 @@ public class EurekaOperations {
                         "            \"name\": \"MyOwn\"\n" +
                         "        }\n" +
                         "    }\n" +
-                        "}"
-                , serviceName);
-        eurekaHttpMethodsService.updateToUP(serviceName, hostName);
+                        "}", serviceName);
+    	eurekaFeign.getFeignBuilder().updateToUP(serviceName, hostName);
     }
 
     public void delete(){
-        eurekaHttpMethodsService.delete(serviceName, hostName);
+    	eurekaFeign.getFeignBuilder().delete(serviceName, hostName);
     }
 }
