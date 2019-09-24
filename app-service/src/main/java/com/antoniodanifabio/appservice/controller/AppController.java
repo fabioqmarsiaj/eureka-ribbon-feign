@@ -1,17 +1,17 @@
 package com.antoniodanifabio.appservice.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
-import com.antoniodanifabio.appservice.command.playlist.GetAllPlaylistsCommand;
-import com.antoniodanifabio.appservice.command.playlist.SearchPlaylistByIdCommand;
-import com.antoniodanifabio.appservice.command.song.GetSongDetailCommand;
-import com.antoniodanifabio.appservice.domain.Song;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.antoniodanifabio.appservice.command.playlist.GetAllPlaylistsCommand;
+import com.antoniodanifabio.appservice.command.playlist.SearchPlaylistByIdCommand;
+import com.antoniodanifabio.appservice.command.song.GetSongDetailCommand;
+import com.antoniodanifabio.appservice.domain.Song;
 
 @RestController
 @RequestMapping
