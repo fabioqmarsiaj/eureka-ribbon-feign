@@ -23,6 +23,8 @@ dependencies {
     compile group: 'io.github.openfeign', name: 'feign-gson', version: "${feignVersion}"
     compile "com.netflix.hystrix:hystrix-core:${hystrixVersion}"
     compile "com.netflix.hystrix:hystrix-metrics-event-stream:${hystrixVersion}"
+    compile group: 'com.netflix.eureka', name: 'eureka-client', version: '1.9.13'
+    
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 

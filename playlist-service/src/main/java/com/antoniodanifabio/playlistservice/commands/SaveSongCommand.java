@@ -1,5 +1,7 @@
 package com.antoniodanifabio.playlistservice.commands;
 
+import java.util.Optional;
+
 import com.antoniodanifabio.playlistservice.domain.Playlist;
 import com.antoniodanifabio.playlistservice.repository.PlaylistRepository;
 import com.netflix.hystrix.HystrixCommand;
@@ -20,9 +22,9 @@ public class SaveSongCommand extends HystrixCommand<Playlist> {
 
     @Override
     protected Playlist run() throws Exception {
-        Playlist playlist = new FindByIdCommand(repository, playlistId).execute();
-        playlist.getSongIds().add(songId);
-        return repository.save(playlist);
+        Optional<Playlist> playlist = new FindByIdCommand(repository, playlistId).execute();  
+        playlist.get().getSongIds().add(songId);
+        return repository.save(playlist.get());
     }
 
     @Override

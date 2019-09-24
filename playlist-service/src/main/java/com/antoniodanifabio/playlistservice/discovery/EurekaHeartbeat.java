@@ -14,14 +14,18 @@ public class EurekaHeartbeat {
 
     @Value("${service.name}")
     private String serviceName;
-
-    private EurekaHttpMethods eurekaHttpMethodsService = Feign
-            .builder()
-            .decoder(new GsonDecoder())
-            .target(EurekaHttpMethods.class, "http://localhost:8080/eureka/v2/apps");
+    
+    @Value("${eureka.address}")
+    private String eurekaAddress;
 
     @Scheduled(fixedRate = 20000)
     public void heartBeat(){
+    	
+    	EurekaHttpClient eurekaHttpMethodsService = Feign
+                .builder()
+                .decoder(new GsonDecoder())
+                .target(EurekaHttpClient.class, eurekaAddress);
+    	
         eurekaHttpMethodsService.heartBeat(serviceName, hostName);
     }
 }

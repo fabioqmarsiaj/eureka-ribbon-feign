@@ -4,11 +4,9 @@ import com.antoniodanifabio.playlistservice.domain.Playlist;
 import com.antoniodanifabio.playlistservice.repository.PlaylistRepository;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandProperties;
-
 import java.util.Optional;
 
-public class FindByIdCommand extends HystrixCommand<Playlist> {
+public class FindByIdCommand extends HystrixCommand<Optional<Playlist>> {
 
     private PlaylistRepository repository;
     private String playlistId;
@@ -20,8 +18,7 @@ public class FindByIdCommand extends HystrixCommand<Playlist> {
     }
 
     @Override
-    protected Playlist run() throws Exception {
-        Optional<Playlist> playlist = repository.findById(playlistId);
-        return playlist.orElse(null);
+    protected Optional<Playlist> run() throws Exception {
+        return repository.findById(playlistId);
     }
 }

@@ -17,10 +17,10 @@ public class EurekaOperations {
     @Value("${service.name}")
     private String serviceName;
 
-    private  EurekaHttpMethods eurekaHttpMethodsService = Feign
+    private  EurekaHttpClient eurekaHttpMethodsService = Feign
             .builder()
             .decoder(new GsonDecoder())
-            .target(EurekaHttpMethods.class, "http://localhost:8080/eureka/v2/apps");
+            .target(EurekaHttpClient.class, "http://localhost:8080/eureka/v2/apps");
 
     public void register(){
         eurekaHttpMethodsService.registry(

@@ -1,9 +1,7 @@
 package com.antoniodanifabio.playlistservice.domain;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,7 @@ import java.util.List;
 public class Playlist {
 
     @Id
-    private ObjectId id;
+    private String id;
     private String name;
     private List<String> songIds = new ArrayList<>();
 
@@ -24,10 +22,10 @@ public class Playlist {
     }
 
     public String getId() {
-        return id.toHexString();
+        return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

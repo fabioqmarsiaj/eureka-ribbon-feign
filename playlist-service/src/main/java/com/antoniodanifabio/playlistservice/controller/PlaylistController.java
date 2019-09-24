@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class PlaylistController{
@@ -36,7 +36,8 @@ public class PlaylistController{
     }
 
     @GetMapping("/playlists/{playlistId}")
-    public ResponseEntity<Playlist> findPlaylistById(@PathVariable String playlistId){
+    public ResponseEntity<Optional<Playlist>> findPlaylistById(@PathVariable String playlistId){
         return ResponseEntity.status(HttpStatus.OK).body(new FindByIdCommand(repository, playlistId).execute());
     }
 }
+
