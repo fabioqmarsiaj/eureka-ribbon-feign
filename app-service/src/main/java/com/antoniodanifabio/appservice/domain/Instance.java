@@ -1,10 +1,5 @@
 package com.antoniodanifabio.appservice.domain;
 
-import org.springframework.stereotype.Component;
-
-import com.netflix.appinfo.DataCenterInfo;
-
-@Component
 public class Instance {
 	
 	private String hostName;
@@ -13,12 +8,12 @@ public class Instance {
 	private String secureVipAddress;
 	private String ipAddr;
 	private String status;
-	private Port port;
-	private SecurePort securePort;
+	private String port;
+	private String securePort;
 	private String healthCheckUrl;
 	private String statusPageUrl;
 	private String homePageUrl;
-	private DataCenterInfo dataCenterInfo;
+	private String dataCenterInfo;
 	
 	public String getHostName() {
 		return hostName;
@@ -68,19 +63,19 @@ public class Instance {
 		this.status = status;
 	}
 
-	public Port getPort() {
+	public String getPort() {
 		return port;
 	}
 
-	public void setPort(Port port) {
+	public void setPort(String port) {
 		this.port = port;
 	}
 
-	public SecurePort getSecurePort() {
+	public String getSecurePort() {
 		return securePort;
 	}
 
-	public void setSecurePort(SecurePort securePort) {
+	public void setSecurePort(String securePort) {
 		this.securePort = securePort;
 	}
 
@@ -108,17 +103,17 @@ public class Instance {
 		this.homePageUrl = homePageUrl;
 	}
 
-	public DataCenterInfo getDataCenterInfo() {
+	public String getDataCenterInfo() {
 		return dataCenterInfo;
 	}
 
-	public void setDataCenterInfo(com.netflix.appinfo.DataCenterInfo dataCenterInfo) {
-		this.dataCenterInfo = dataCenterInfo;
+	public void setDataCenterInfo(String defaultDataCenterInfo) {
+		this.dataCenterInfo = defaultDataCenterInfo;
 	}
 
 	public Instance(String hostName, String app, String vipAddress, String secureVipAddress, String ipAddr,
-			String status, Port port, SecurePort securePort, String healthCheckUrl, String statusPageUrl,
-			String homePageUrl, DataCenterInfo dataCenterInfo2) {
+			String status, String port, String securePort, String healthCheckUrl, String statusPageUrl,
+			String homePageUrl, String dataCenterInfo) {
 		this.hostName = hostName;
 		this.app = app;
 		this.vipAddress = vipAddress;
@@ -130,7 +125,40 @@ public class Instance {
 		this.healthCheckUrl = healthCheckUrl;
 		this.statusPageUrl = statusPageUrl;
 		this.homePageUrl = homePageUrl;
-		this.dataCenterInfo = dataCenterInfo2;
+		this.dataCenterInfo = dataCenterInfo;
+	}
+	
+	@Override
+	public String toString() {
+		return "{\n" +
+                "   \"instance\":{\n" +
+                "      \"hostName\":\"" + hostName + "\",\n" +
+                "      \"app\":\"app-service\",\n" +
+                "      \"vipAddress\":\"com.localhost\",\n" +
+                "      \"secureVipAddress\":\"com.localhost\",\n" +
+                "      \"ipAddr\":\"localhost\",\n" +
+                "      \"status\":\"STARTING\",\n" +
+                "      \"port\":{\n" +
+                "         \"$\":\"8081\",\n" +
+                "         \"@enabled\":\"true\"\n" +
+                "      },\n" +
+                "      \"securePort\":{\n" +
+                "         \"$\":\"8431\",\n" +
+                "         \"@enabled\":\"true\"\n" +
+                "      },\n" +
+                "      \"healthCheckUrl\":\"http://localhost:8081/healthcheck\",\n" +
+                "      \"statusPageUrl\":\"http://localhost:8081/status\",\n" +
+                "      \"homePageUrl\":\"http://localhost:8081\",\n" +
+                "      \"dataCenterInfo\":{\n" +
+                "         \"@class\":\"com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo\",\n" +
+                "         \"name\":\"MyOwn\"\n" +
+                "      }\n" +
+                "   }\n" +
+                "}";
+	}
+
+	public Instance(String hostName) {
+		this.hostName = hostName;
 	}
 	
 }

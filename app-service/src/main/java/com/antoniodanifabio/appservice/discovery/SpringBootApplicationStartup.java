@@ -1,5 +1,8 @@
 package com.antoniodanifabio.appservice.discovery;
 
+import java.io.IOException;
+
+import org.codehaus.jettison.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -13,7 +16,15 @@ public class SpringBootApplicationStartup implements ApplicationListener<Applica
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        eurekaOperations.register();
+        try {
+			eurekaOperations.register();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
 }
