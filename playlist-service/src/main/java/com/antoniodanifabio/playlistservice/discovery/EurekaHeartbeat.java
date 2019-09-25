@@ -15,7 +15,7 @@ public class EurekaHeartbeat {
     @Value("${service.name}")
     private String serviceName;
     
-    @Value("${eureka.address}")
+    @Value("${eureka.url}")
     private String eurekaAddress;
 
     @Scheduled(fixedRate = 20000)

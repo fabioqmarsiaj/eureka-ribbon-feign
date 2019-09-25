@@ -1,11 +1,11 @@
 package com.antoniodanifabio.playlistservice.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.stereotype.Component;
+import com.netflix.appinfo.DataCenterInfo;
+import com.netflix.appinfo.MyDataCenterInfo;
 
 @Component
-public class RegistryJson {
+public class Instance {
 	
 	private String hostName;
 	private String app;
@@ -13,20 +13,29 @@ public class RegistryJson {
 	private final String secureVipAddress = "com.localhost";
 	private String ipAddr;
 	private String status = "STARTING";
-	private List<String> port;
-	private List<String> securePort;
+	private Integer port;
+	private Integer securePort;
 	private String healthCheckUrl;
 	private String statusPageUrl;
 	private String homePageUrl;
-	private List<String> dataCenterInfo;
+	private MyDataCenterInfo dataCenterInfo;
 	
-	public RegistryJson() {
+	public Instance() {
 		super();
-		port = new ArrayList<String>();
-		securePort = new ArrayList<String>();
-		dataCenterInfo = new ArrayList<String>();
 	}
 	
+	public void setPort(Integer port) {
+		this.port = port;
+	}
+	public void setSecurePort(Integer securePort) {
+		this.securePort = securePort;
+	}
+	public MyDataCenterInfo getDataCenterInfo() {
+		return dataCenterInfo;
+	}
+	public void setDataCenterInfo(MyDataCenterInfo myDataCenterInfo) {
+		this.dataCenterInfo = myDataCenterInfo;
+	}
 	public String getHostName() {
 		return hostName;
 	}
@@ -51,10 +60,10 @@ public class RegistryJson {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public List<String> getPort() {
+	public Integer getPort() {
 		return port;
 	}
-	public List<String> getSecurePort() {
+	public Integer getSecurePort() {
 		return securePort;
 	}
 	public String getHealthCheckUrl() {
@@ -75,20 +84,20 @@ public class RegistryJson {
 	public void setHomePageUrl(String homePageUrl) {
 		this.homePageUrl = homePageUrl;
 	}
-	public List<String> getDataCenterInfo() {
-		return dataCenterInfo;
-	}
 	public String getVipAddress() {
 		return vipAddress;
 	}
 	public String getSecureVipAddress() {
 		return secureVipAddress;
 	}
-	
-	
-	
-	
-	
-	
 
+	@Override
+	public String toString() {
+		return "instance: {hostName:" + hostName + ", app:" + app + ", vipAddress:" + vipAddress + ", secureVipAddress:"
+				+ secureVipAddress + ", ipAddr:" + ipAddr + ", status:" + status + ", port:" + port + ", securePort:"
+				+ securePort + ", healthCheckUrl:" + healthCheckUrl + ", statusPageUrl:" + statusPageUrl
+				+ ", homePageUrl:" + homePageUrl + ", dataCenterInfo:" + dataCenterInfo;
+	}
+	
+	
 }
