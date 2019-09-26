@@ -1,21 +1,22 @@
 package com.antoniodanifabio.appservice.command.playlist;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.antoniodanifabio.appservice.discovery.PlaylistFeign;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.antoniodanifabio.appservice.domain.Playlist;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 
 public class SearchPlaylistByIdCommand extends HystrixCommand<Playlist> {
-	
-	@Autowired
+
+    @Autowired
     private PlaylistFeign playlistFeign;
+
     private String playlistId;
 
-    public SearchPlaylistByIdCommand(String playlistId) {
+    public SearchPlaylistByIdCommand(String playlistId, PlaylistFeign playlistFeign) {
         super(HystrixCommandGroupKey.Factory.asKey("SearchPlaylistById"));
         this.playlistId = playlistId;
+        this.playlistFeign = playlistFeign;
     }
 
     @Override
