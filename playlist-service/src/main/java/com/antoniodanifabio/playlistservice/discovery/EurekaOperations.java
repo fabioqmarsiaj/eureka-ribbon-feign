@@ -26,26 +26,17 @@ public class EurekaOperations {
   
 
     public void register(){
-    	
     	instance.setHostName(buildInstanceID(ipAddress, serverPort, serviceName));
     	instance.setApp(serviceName);
     	instance.setIpAddr(ipAddress);
-    	instance.setPort(1);
-    	instance.setSecurePort(1);
+    	instance.setPort(serverPort);
+    	instance.setSecurePort(serverPort);
     	instance.setHealthCheckUrl("http://localhost:"+serverPort+"/healthcheck");
     	instance.setStatusPageUrl("http://localhost:"+serverPort+"/status");
     	instance.setHomePageUrl("http://localhost:"+serverPort);
     	instance.setDataCenterInfo(new MyDataCenterInfo(Name.MyOwn));
-    	instance.getDataCenterInfo().getClass();
-    	Gson gson = new Gson();
     	
-    	String instanceString = gson.toJson(instance);
-    	
-    	System.out.println("instance:" + instanceString);
-    	
-        eurekaFeign.getFeignBuilder().registry(
-        		"instance:" + instanceString
-        , serviceName);
+        eurekaFeign.getFeignBuilder().registry(instance.toString(), serviceName);
         eurekaFeign.getFeignBuilder().updateToUP(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
     }
 
