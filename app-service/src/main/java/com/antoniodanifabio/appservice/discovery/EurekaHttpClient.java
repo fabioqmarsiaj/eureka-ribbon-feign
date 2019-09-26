@@ -5,7 +5,7 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 
-public interface EurekaHttpMethods {
+public interface EurekaHttpClient {
 
 	@RequestLine("POST /{serviceName}")
     @Headers("Content-Type: application/json")

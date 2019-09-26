@@ -1,7 +1,6 @@
 package com.antoniodanifabio.playlistservice.domain;
 
 import org.springframework.stereotype.Component;
-import com.netflix.appinfo.DataCenterInfo;
 import com.netflix.appinfo.MyDataCenterInfo;
 
 @Component
@@ -13,8 +12,8 @@ public class Instance {
 	private final String secureVipAddress = "com.localhost";
 	private String ipAddr;
 	private String status = "STARTING";
-	private Integer port;
-	private Integer securePort;
+	private String port;
+	private String securePort;
 	private String healthCheckUrl;
 	private String statusPageUrl;
 	private String homePageUrl;
@@ -24,10 +23,10 @@ public class Instance {
 		super();
 	}
 	
-	public void setPort(Integer port) {
+	public void setPort(String port) {
 		this.port = port;
 	}
-	public void setSecurePort(Integer securePort) {
+	public void setSecurePort(String securePort) {
 		this.securePort = securePort;
 	}
 	public MyDataCenterInfo getDataCenterInfo() {
@@ -60,10 +59,10 @@ public class Instance {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Integer getPort() {
+	public String getPort() {
 		return port;
 	}
-	public Integer getSecurePort() {
+	public String getSecurePort() {
 		return securePort;
 	}
 	public String getHealthCheckUrl() {
@@ -93,11 +92,31 @@ public class Instance {
 
 	@Override
 	public String toString() {
-		return "instance: {hostName:" + hostName + ", app:" + app + ", vipAddress:" + vipAddress + ", secureVipAddress:"
-				+ secureVipAddress + ", ipAddr:" + ipAddr + ", status:" + status + ", port:" + port + ", securePort:"
-				+ securePort + ", healthCheckUrl:" + healthCheckUrl + ", statusPageUrl:" + statusPageUrl
-				+ ", homePageUrl:" + homePageUrl + ", dataCenterInfo:" + dataCenterInfo;
+		return "{\n" +
+                "   \"instance\":{\n" +
+                "      \"hostName\":\"" + hostName + "\",\n" +
+                "      \"app\":\"" + app + "\",\n" +
+                "      \"vipAddress\":\"" + vipAddress + "\",\n" +
+                "      \"secureVipAddress\":\""+ secureVipAddress +"\",\n" +
+                "      \"ipAddr\":\"" + ipAddr + "\",\n" +
+                "      \"status\":\"" + status + "\",\n" +
+                "      \"port\":{\n" +
+                "         \"$\":\"" + port + "\",\n" +
+                "         \"@enabled\":\"true\"\n" +
+                "      },\n" +
+                "      \"securePort\":{\n" +
+                "         \"$\":\"8431\",\n" +
+                "         \"@enabled\":\"true\"\n" +
+                "      },\n" +
+                "      \"healthCheckUrl\":\"" + healthCheckUrl + "\",\n" +
+                "      \"statusPageUrl\":\"" + statusPageUrl + "\",\n" +
+                "      \"homePageUrl\":\"" + homePageUrl + "\",\n" +
+                "      \"dataCenterInfo\":{\n" +
+                "         \"@class\":\"com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo\",\n" +
+                "         \"name\":\"" + dataCenterInfo.getName() + "\"\n" +
+                "      }\n" +
+                "   }\n" +
+                "}";
 	}
-	
 	
 }

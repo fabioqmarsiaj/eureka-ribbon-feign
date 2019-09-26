@@ -12,10 +12,10 @@ public class EurekaFeign {
 	@Value("${eureka.url}")
     private String eurekaUrl;
 	
-	public EurekaHttpMethods getFeignBuilder() {
+	public EurekaHttpClient getFeignBuilder() {
 		return Feign.builder()
 	            .decoder(new GsonDecoder())
-	            .target(EurekaHttpMethods.class, eurekaUrl);
+	            .target(EurekaHttpClient.class, eurekaUrl);
 	}
 	
 }
