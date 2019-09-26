@@ -4,5 +4,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.antoniodanifabio.songservice.domain.Song;
 
-public interface SongRepository extends MongoRepository<Song, String>{
-}
+public interface SongRepository extends MongoRepository<Song, String>{}

@@ -1,7 +1,5 @@
 package com.antoniodanifabio.songservice.discovery;
 
-import feign.Feign;
-import feign.gson.GsonDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,15 +17,14 @@ public class EurekaHeartbeat {
     @Value("${service.name}")
     private String serviceName;
     @Autowired
-    private EurekaOperations eurekaOperations;
-
-    private EurekaHttpMethods eurekaHttpMethodsService = Feign
-            .builder()
-            .decoder(new GsonDecoder())
-            .target(EurekaHttpMethods.class, "http://localhost:8080/eureka/v2/apps");
+    private EurekaFeign eurekaFeign;
 
     @Scheduled(fixedRate = 20000)
     public void heartBeat(){
-        eurekaHttpMethodsService.heartBeat(serviceName, eurekaOperations.buildInstanceID(ipAddress, serverPort, serviceName));
+    	eurekaFeign.getFeignBuilder().heartBeat(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
+    }
+    
+    private String buildInstanceID(String ip, String port, String appName) {
+        return String.format("%s_%s_%s", appName, ip, port);
     }
 }

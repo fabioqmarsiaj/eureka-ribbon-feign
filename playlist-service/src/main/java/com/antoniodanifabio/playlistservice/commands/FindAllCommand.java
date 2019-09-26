@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FindAllCommand extends HystrixCommand<List<Playlist>> {
+	
     private PlaylistRepository repository;
 
     public FindAllCommand(PlaylistRepository repository) {

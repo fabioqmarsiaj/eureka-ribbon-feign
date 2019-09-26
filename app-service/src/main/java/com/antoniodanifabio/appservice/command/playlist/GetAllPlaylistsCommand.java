@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.antoniodanifabio.appservice.discovery.PlaylistFeign;
 import com.antoniodanifabio.appservice.domain.Playlist;
-import com.antoniodanifabio.appservice.operation.PlaylistOperation;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 

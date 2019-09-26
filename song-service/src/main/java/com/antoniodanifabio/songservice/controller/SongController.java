@@ -1,6 +1,9 @@
 package com.antoniodanifabio.songservice.controller;
 
 import java.util.List;
+
+import javax.ws.rs.core.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,24 +21,29 @@ import com.antoniodanifabio.songservice.domain.Song;
 import com.antoniodanifabio.songservice.repository.SongRepository;
 
 @RestController
-@RequestMapping("/songs")
+@RequestMapping
 public class SongController {
 	
 	@Autowired
 	private SongRepository repository;
 	
-	@GetMapping
+	@GetMapping("/status")
+	public Response getStatus(){
+		return Response.ok().build();
+	}
+	
+	@GetMapping("/songs")
 	@ResponseStatus(value = HttpStatus.OK)
 	public ResponseEntity<List<Song>> getAllSongs() {
 		return ResponseEntity.status(HttpStatus.OK).body(new FindAllCommand(repository).execute());
 	}
 
-	@PostMapping
+	@PostMapping("/songs")
 	public ResponseEntity<Song> insertSong(@RequestBody Song newSong) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new SaveCommand(repository, newSong).execute());
 	}
 
-	@GetMapping(value = "/{songId}")
+	@GetMapping(value = "/songs/{songId}")
 	public ResponseEntity<Song> searchSong(@PathVariable String songId) {
 		return ResponseEntity.status(HttpStatus.OK).body(new SearchCommand(repository, songId).execute());
 	}

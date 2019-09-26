@@ -11,7 +11,6 @@ public class SearchPlaylistByIdCommand extends HystrixCommand<Playlist> {
 	
 	@Autowired
     private PlaylistFeign playlistFeign;
-
     private String playlistId;
 
     public SearchPlaylistByIdCommand(String playlistId) {

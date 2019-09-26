@@ -15,19 +15,24 @@ repositories {
 
 ext {
     hystrixVersion = '1.5.18'
+	ribbonVersion = '2.7.17'
+	feignVersion = '10.4.0'
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compile group: 'io.github.openfeign', name: 'feign-core', version: "${feignVersion}"
-    compile group: 'io.github.openfeign', name: 'feign-gson', version: "${feignVersion}"
-    
-
+    compile([
+		"com.netflix.eureka:eureka-client:1.9.13",
+		"com.netflix.ribbon:ribbon-core:${ribbonVersion}",
+		"com.netflix.ribbon:ribbon:${ribbonVersion}",
+		"io.github.openfeign:feign-core:${feignVersion}",
+		"io.github.openfeign:feign-gson:${feignVersion}",
+		"io.github.openfeign:feign-ribbon:${feignVersion}",
+		"io.reactivex:rxjava:1.3.8",
+		"io.netty:netty-buffer:4.1.41.Final",
+		"com.netflix.hystrix:hystrix-core:${hystrixVersion}"
+	])
     compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.8'
-    compile "com.netflix.hystrix:hystrix-core:${hystrixVersion}"
-    compile "com.netflix.hystrix:hystrix-metrics-event-stream:${hystrixVersion}"
-
+    
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

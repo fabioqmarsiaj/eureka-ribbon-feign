@@ -1,13 +1,10 @@
 package com.antoniodanifabio.appservice.domain;
 
-import org.springframework.data.annotation.Id;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist {
 
-    @Id
     private String id;
     private String name;
     private List<String> songIds = new ArrayList<>();

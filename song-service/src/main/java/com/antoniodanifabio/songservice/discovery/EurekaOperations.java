@@ -1,9 +1,12 @@
 package com.antoniodanifabio.songservice.discovery;
 
-import feign.Feign;
-import feign.gson.GsonDecoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import com.antoniodanifabio.songservice.domain.Instance;
+import com.netflix.appinfo.DataCenterInfo.Name;
+import com.netflix.appinfo.MyDataCenterInfo;
 
 @Component
 public class EurekaOperations {
@@ -16,42 +19,32 @@ public class EurekaOperations {
     private String hostName;
     @Value("${service.name}")
     private String serviceName;
-
-    private  EurekaHttpMethods eurekaHttpMethodsService = Feign
-            .builder()
-            .decoder(new GsonDecoder())
-            .target(EurekaHttpMethods.class, "http://localhost:8080/eureka/v2/apps");
-
+    @Autowired
+    private EurekaFeign eurekaFeign;
+    @Autowired
+    private Instance instance;
+    
     public void register(){
-        eurekaHttpMethodsService.registry(
-                "{\n" +
-                        "    \"instance\": {\n" +
-                        "        \"hostName\": \""+ buildInstanceID(ipAddress, serverPort, serviceName) +"\",\n" +
-                        "        \"app\": \""+ serviceName +"\",\n" +
-                        "        \"vipAddress\": \"com.localhost\",\n" +
-                        "        \"secureVipAddress\": \"com.localhost\",\n" +
-                        "        \"ipAddr\": \""+ipAddress+"\",\n" +
-                        "        \"status\": \"STARTING\",\n" +
-                        "        \"port\": {\"$\": \"" + serverPort + "\", \"@enabled\": \"true\"},\n" +
-                        "        \"securePort\": {\"$\": \"8443\", \"@enabled\": \"true\"},\n" +
-                        "        \"healthCheckUrl\": \"http://localhost:"+serverPort+"/healthcheck\",\n" +
-                        "        \"statusPageUrl\": \"http://localhost:"+serverPort+"/status\",\n" +
-                        "        \"homePageUrl\": \"http://localhost:"+serverPort+"\",\n" +
-                        "        \"dataCenterInfo\": {\n" +
-                        "            \"@class\": \"com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo\",\n" +
-                        "            \"name\": \"MyOwn\"\n" +
-                        "        }\n" +
-                        "    }\n" +
-                        "}"
-        , serviceName);
-        eurekaHttpMethodsService.updateToUP(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
+    	instance.setHostName(buildInstanceID(ipAddress, serverPort, serviceName));
+    	instance.setApp(serviceName);
+    	instance.setIpAddr(ipAddress);
+    	instance.setPort(serverPort);
+    	instance.setSecurePort(serverPort);
+    	instance.setHealthCheckUrl("http://localhost:"+serverPort+"/healthcheck");
+    	instance.setStatusPageUrl("http://localhost:"+serverPort+"/status");
+    	instance.setHomePageUrl("http://localhost:"+serverPort);
+    	instance.setDataCenterInfo(new MyDataCenterInfo(Name.MyOwn));
+    	
+        eurekaFeign.getFeignBuilder().registry(instance.toString(), serviceName);
+        eurekaFeign.getFeignBuilder().updateToUP(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
     }
 
     public void delete(){
-        eurekaHttpMethodsService.delete(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
+    	eurekaFeign.getFeignBuilder().delete(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
     }
-
-    String buildInstanceID(String ip, String port, String appName) {
+    
+    private String buildInstanceID(String ip, String port, String appName) {
         return String.format("%s_%s_%s", appName, ip, port);
     }
+
 }

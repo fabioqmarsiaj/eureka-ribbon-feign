@@ -22,8 +22,7 @@ public class EurekaOperations {
     @Autowired
     private Instance instance;
     @Autowired
-    private  EurekaFeign eurekaFeign;
-  
+    private EurekaFeign eurekaFeign;
 
     public void register(){
     	instance.setHostName(buildInstanceID(ipAddress, serverPort, serviceName));
@@ -47,4 +46,5 @@ public class EurekaOperations {
     private String buildInstanceID(String ip, String port, String appName) {
         return String.format("%s_%s_%s", appName, ip, port);
     }
+    
 }

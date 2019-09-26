@@ -1,9 +1,6 @@
 package com.antoniodanifabio.playlistservice.repository;
 
-
-import com.antoniodanifabio.playlistservice.domain.Playlist;
-import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import com.antoniodanifabio.playlistservice.domain.Playlist;
 
-public interface PlaylistRepository extends MongoRepository<Playlist, String> {
-}
+public interface PlaylistRepository extends MongoRepository<Playlist, String> {}

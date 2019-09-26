@@ -13,18 +13,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ws.rs.core.Response;
+
 @RestController
+@RequestMapping
 public class PlaylistController{
 
     @Autowired
     private PlaylistRepository repository;
+    
+    @GetMapping("/status")
+	public Response getStatus(){
+		return Response.ok().build();
+	}
 
     @PostMapping("/playlists")
     public ResponseEntity<Playlist> insertPlaylist(@RequestBody Playlist newPlaylist) {     
         return ResponseEntity.status(HttpStatus.OK).body(new SavePlaylistCommand(repository, newPlaylist).execute());
     }
 
-    @RequestMapping(value = "/playlists", method = RequestMethod.GET)
+    @RequestMapping("/playlists")
     @ResponseBody
     public ResponseEntity<List<Playlist>> getPlaylists(){
         return ResponseEntity.status(HttpStatus.OK).body(new FindAllCommand(repository).execute());

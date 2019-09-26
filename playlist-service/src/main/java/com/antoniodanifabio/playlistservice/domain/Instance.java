@@ -19,9 +19,7 @@ public class Instance {
 	private String homePageUrl;
 	private MyDataCenterInfo dataCenterInfo;
 	
-	public Instance() {
-		super();
-	}
+	public Instance() {}
 	
 	public void setPort(String port) {
 		this.port = port;

@@ -1,4 +1,4 @@
-package com.antoniodanifabio.appservice.domain;
+package com.antoniodanifabio.songservice.domain;
 
 import org.springframework.stereotype.Component;
 import com.netflix.appinfo.MyDataCenterInfo;
@@ -19,7 +19,9 @@ public class Instance {
 	private String homePageUrl;
 	private MyDataCenterInfo dataCenterInfo;
 	
-	public Instance() {}
+	public Instance() {
+		super();
+	}
 	
 	public void setPort(String port) {
 		this.port = port;
