@@ -14,7 +14,7 @@ import com.antoniodanifabio.appservice.command.song.GetSongDetailCommand;
 import com.antoniodanifabio.appservice.domain.Song;
 
 @RestController
-@RequestMapping
+@RequestMapping("/app")
 public class AppController {
 
     @GetMapping
