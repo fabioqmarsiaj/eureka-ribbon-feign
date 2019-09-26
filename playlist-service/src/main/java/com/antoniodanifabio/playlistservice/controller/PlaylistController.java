@@ -20,32 +20,7 @@ public class PlaylistController{
     private PlaylistRepository repository;
 
     @PostMapping("/playlists")
-    public ResponseEntity<Playlist> insertPlaylist(@RequestBody Playlist newPlaylist) {
-        String aaa = "{\n" +
-                "   \"instance\":{\n" +
-                "      \"hostName\":\"app-service\",\n" +
-                "      \"app\":\"app-service\",\n" +
-                "      \"vipAddress\":\"com.localhost\",\n" +
-                "      \"secureVipAddress\":\"com.localhost\",\n" +
-                "      \"ipAddr\":\"localhost\",\n" +
-                "      \"status\":\"STARTING\",\n" +
-                "      \"port\":{\n" +
-                "         \"$\":\"8081\",\n" +
-                "         \"@enabled\":\"true\"\n" +
-                "      },\n" +
-                "      \"securePort\":{\n" +
-                "         \"$\":\"8431\",\n" +
-                "         \"@enabled\":\"true\"\n" +
-                "      },\n" +
-                "      \"healthCheckUrl\":\"http://localhost:8081/healthcheck\",\n" +
-                "      \"statusPageUrl\":\"http://localhost:8081/status\",\n" +
-                "      \"homePageUrl\":\"http://localhost:8081\",\n" +
-                "      \"dataCenterInfo\":{\n" +
-                "         \"@class\":\"com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo\",\n" +
-                "         \"name\":\"MyOwn\"\n" +
-                "      }\n" +
-                "   }\n" +
-                "}";
+    public ResponseEntity<Playlist> insertPlaylist(@RequestBody Playlist newPlaylist) {     
         return ResponseEntity.status(HttpStatus.OK).body(new SavePlaylistCommand(repository, newPlaylist).execute());
     }
 
