@@ -1,19 +1,11 @@
 package com.antoniodanifabio.appservice.discovery;
 
-import com.antoniodanifabio.appservice.domain.Instance;
-import com.netflix.appinfo.InstanceInfo;
-
 import feign.Body;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 
 public interface EurekaHttpMethods {
-
-//    @RequestLine("POST /{serviceName}")
-//    @Headers("Content-Type: application/json")
-//    @Body("{jsonString}")
-//    void registry(@Param("jsonString") String jsonString, @Param("serviceName") String serviceName);
 
 	@RequestLine("POST /{serviceName}")
     @Headers("Content-Type: application/json")

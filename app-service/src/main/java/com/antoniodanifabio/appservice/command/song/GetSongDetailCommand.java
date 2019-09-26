@@ -23,10 +23,10 @@ public class GetSongDetailCommand extends HystrixCommand<Song> {
 	@Value("${host.name}")
     private String hostName;
 	
-	@Value("${song1.port}")
+	@Value("${instance1.song}")
     private Integer portInstanceSong1;
 	
-	@Value("${song2.port}")
+	@Value("${instance2.song}")
     private Integer portInstanceSong2;
 	
     private List<Server> hosts = Arrays.asList(

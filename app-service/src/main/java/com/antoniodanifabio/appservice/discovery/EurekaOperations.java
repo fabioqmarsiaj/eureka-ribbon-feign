@@ -1,26 +1,12 @@
 package com.antoniodanifabio.appservice.discovery;
 
-import java.io.IOException;
-
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.netflix.appinfo.DataCenterInfo;
-import com.netflix.appinfo.DataCenterInfo.Name;
 import com.antoniodanifabio.appservice.domain.Instance;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.appinfo.InstanceInfo.ActionType;
-import com.netflix.appinfo.InstanceInfo.InstanceStatus;
-import com.netflix.appinfo.InstanceInfo.PortType;
+import com.netflix.appinfo.DataCenterInfo.Name;
 import com.netflix.appinfo.MyDataCenterInfo;
-import com.netflix.discovery.converters.jackson.DataCenterTypeInfoResolver;
 
 @Component
 public class EurekaOperations {
@@ -33,19 +19,32 @@ public class EurekaOperations {
     private String hostName;
     @Value("${service.name}")
     private String serviceName;
-
+    @Autowired
+    private Instance instance;
     @Autowired
     private EurekaFeign eurekaFeign;
     
-    public void register() throws IOException, JSONException{
-    	Instance instance = new Instance(hostName);
-    	System.out.println(instance.toString());
+    public void register() {
+    	instance.setHostName(buildInstanceID(ipAddress, serverPort, serviceName));
+    	instance.setApp(serviceName);
+    	instance.setIpAddr(ipAddress);
+    	instance.setPort(serverPort);
+    	instance.setSecurePort(serverPort);
+    	instance.setHealthCheckUrl("http://localhost:"+serverPort+"/healthcheck");
+    	instance.setStatusPageUrl("http://localhost:"+serverPort+"/status");
+    	instance.setHomePageUrl("http://localhost:"+serverPort);
+    	instance.setDataCenterInfo(new MyDataCenterInfo(Name.MyOwn));
     	
-    	eurekaFeign.getFeignBuilder().registry(instance.toString(), serviceName);
-    	eurekaFeign.getFeignBuilder().updateToUP(serviceName, hostName);
+        eurekaFeign.getFeignBuilder().registry(instance.toString(), serviceName);
+        eurekaFeign.getFeignBuilder().updateToUP(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
     }
 
     public void delete(){
     	eurekaFeign.getFeignBuilder().delete(serviceName, hostName);
     }
+    
+    private String buildInstanceID(String ip, String port, String appName) {
+        return String.format("%s_%s_%s", appName, ip, port);
+    }
+    
 }
