@@ -3,8 +3,8 @@ package com.antoniodanifabio.playlistservice.discovery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import com.antoniodanifabio.playlistservice.domain.Instance;
-import com.google.gson.Gson;
 import com.netflix.appinfo.DataCenterInfo.Name;
 import com.netflix.appinfo.MyDataCenterInfo;
 
