@@ -8,9 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class EurekaHeartbeat {
 
+	@Value("${server.port}")
+    private String serverPort;
+    @Value("${ip.address}")
+    private String ipAddress;
     @Value("${host.name}")
     private String hostName;
-
     @Value("${service.name}")
     private String serviceName;
     
@@ -19,6 +22,11 @@ public class EurekaHeartbeat {
 
     @Scheduled(fixedRate = 20000)
     public void heartBeat(){
-        eurekaFeign.getFeignBuilder().heartBeat(serviceName, hostName);
+        eurekaFeign.getFeignBuilder().heartBeat(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
     }
+    
+    private String buildInstanceID(String ip, String port, String appName) {
+        return String.format("%s_%s_%s", appName, ip, port);
+    }
+    
 }

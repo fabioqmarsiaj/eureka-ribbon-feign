@@ -40,7 +40,7 @@ public class EurekaOperations {
     }
 
     public void delete(){
-    	eurekaFeign.getFeignBuilder().delete(serviceName, hostName);
+    	eurekaFeign.getFeignBuilder().delete(serviceName, buildInstanceID(ipAddress, serverPort, serviceName));
     }
     
     private String buildInstanceID(String ip, String port, String appName) {
