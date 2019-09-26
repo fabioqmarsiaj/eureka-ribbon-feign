@@ -2,15 +2,15 @@ package com.antoniodanifabio.appservice.command.playlist;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.antoniodanifabio.appservice.discovery.PlaylistFeign;
 import com.antoniodanifabio.appservice.domain.Playlist;
-import com.antoniodanifabio.appservice.operation.PlaylistOperation;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 
 public class SearchPlaylistByIdCommand extends HystrixCommand<Playlist> {
 	
 	@Autowired
-    private PlaylistOperation playlistOperation;
+    private PlaylistFeign playlistFeign;
 
     private String playlistId;
 
@@ -21,7 +21,7 @@ public class SearchPlaylistByIdCommand extends HystrixCommand<Playlist> {
 
     @Override
     protected Playlist run() throws Exception {
-        return playlistOperation.searchById(playlistId);
+        return playlistFeign.getFeignBuilder().searchById(playlistId);
     }
 
     @Override
